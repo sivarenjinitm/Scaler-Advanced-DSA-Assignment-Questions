@@ -1,0 +1,33 @@
+public class Solution {
+    public ArrayList<Integer> solve(int A, ArrayList<ArrayList<Integer>> B) {
+        ArrayList<Integer> ans=new ArrayList<>();
+
+        //Initialising the array with zeros
+        for(int i=0;i<A;i++)
+        ans.add(0);
+
+        //System.out.print("***"+B.size()+"*****");
+
+        //Indicate the elements to be added in the array at indicated location (Kind of like prefix sum)
+        for(int i=0;i<B.size();i++)
+        {   
+            int l=B.get(i).get(0)-1;
+            int r=B.get(i).get(1);
+            int val=B.get(i).get(2);
+
+            ans.set(l,ans.get(l)+val);
+            if(r<A)
+            ans.set(r,ans.get(r)-val);
+        }
+
+        //Build the array like prefix sum
+        for(int i=1;i<A;i++)
+        {
+            ans.set(i,ans.get(i-1)+ans.get(i));
+        }
+
+        //Return the array
+        return ans;
+        
+    }
+}
