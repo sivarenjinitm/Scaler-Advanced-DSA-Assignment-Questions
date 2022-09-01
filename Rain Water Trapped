@@ -1,0 +1,31 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int trap(final List<Integer> A) {
+        int n=A.size();
+
+        //Create left max array
+        ArrayList<Integer> L=new ArrayList<>();
+        L.add(A.get(0));
+        for(int i=1;i<n;i++)
+        L.add(Math.max(L.get(i-1),A.get(i)));
+
+        //Creat right max array
+        ArrayList<Integer> R=new ArrayList<>();
+        R.add(A.get(n-1));
+        for(int i=1;i<n;i++)
+        R.add(Math.max(R.get(i-1),A.get(n-i-1)));
+        Collections.reverse(R);
+        
+        //Compute the water stored
+        int ws=0;
+        for(int i=0;i<n;i++)
+        ws+=Math.min(R.get(i),L.get(i))-A.get(i);
+
+
+        //for(int x:R)
+        //System.out.print(x);
+
+        return ws;
+
+    }
+}
