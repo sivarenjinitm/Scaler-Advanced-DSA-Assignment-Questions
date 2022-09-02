@@ -3,20 +3,16 @@ public class Solution {
     public int maxSubArray(final List<Integer> A) {
 
         int size=A.size();
-        int sum=A.get(0);
-        int maxsum=A.get(0);
-        for(int i=1;i<size;i++)
+        int sum=0;
+        int maxsum=Integer.MIN_VALUE;
+
+        //Taking cummulative sum of each element, setting 0 if sum is negative
+        //Storing max sum value
+        for(int i=0;i<size;i++)
         {
-            if(sum+A.get(i)<=0)
-            {   
-                maxsum=Math.max(maxsum,A.get(i));
-                sum=0;
-            }
-            else
-            {
-                sum+=A.get(i);
-                maxsum=Math.max(maxsum,sum);
-            }
+            sum+=A.get(i);
+            maxsum=Math.max(maxsum,sum);
+            if(sum<0) sum=0;
         }
 
         return maxsum;
