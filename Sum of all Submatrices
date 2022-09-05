@@ -1,0 +1,30 @@
+public class Solution {
+    public int solve(ArrayList<ArrayList<Integer>> A) {
+        int n=A.size();
+        int sum=0;
+
+        for(int e=1;e<=n*n;e++)//No. of elements
+        {   
+            for(int r=1;r<=e;r++)
+            for(int c=1;c<=e;c++)//No. of rows and columns
+            {
+                if(r*c==e && r<=n && c<=n)
+                {   
+                    for(int si=0;si<=n-r;si++)//Start index
+                    for(int sj=0;sj<=n-c;sj++)
+                    {
+                        
+                        
+                        for(int i=si;i<r+si;i++)
+                        for(int j=sj;j<c+sj;j++)
+                        sum+=A.get(i).get(j);
+
+                    }
+                    
+                }
+            }
+        }
+
+        return sum;
+    }
+}
