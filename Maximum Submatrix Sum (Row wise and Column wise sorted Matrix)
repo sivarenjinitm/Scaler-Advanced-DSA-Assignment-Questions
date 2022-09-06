@@ -1,0 +1,43 @@
+public class Solution {
+    public Long solve(ArrayList<ArrayList<Integer>> A) {
+        
+        long ans=Long.MIN_VALUE;
+        int n=A.size();
+        int m=A.get(0).size();
+
+        //Building prefix sum matrix without padding
+        ArrayList<ArrayList<Long>> P=new ArrayList<>();
+
+        for(int i=0;i<n;i++)
+        P.add(new ArrayList<>());
+
+        P.get(0).add((long)A.get(0).get(0));//Adding first top left cell
+        for(int i=1;i<m;i++)//Adding first row
+        P.get(0).add(A.get(0).get(i)+P.get(0).get(i-1));
+        for(int i=1;i<n;i++)//Adding first column
+        P.get(i).add(A.get(i).get(0)+P.get(i-1).get(0));
+
+        for(int i=1;i<n;i++)//Rest of the elements
+        for(int j=1;j<m;j++)
+        P.get(i).add(P.get(i-1).get(j)+P.get(i).get(j-1)+A.get(i).get(j)-P.get(i-1).get(j-1));
+
+        //System.out.print(P);
+        //The bottom right cell would defenetly be in the answer
+        for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++)
+        {long temp=0l;
+            if(i==0 && j==0)
+            temp=P.get(n-1).get(m-1);
+            else if(j==0)
+            temp=P.get(n-1).get(m-1)-P.get(i-1).get(m-1);
+            else if(i==0)
+            temp=P.get(n-1).get(m-1)-P.get(n-1).get(j-1);
+            else
+            temp=P.get(n-1).get(m-1)-P.get(n-1).get(j-1)-P.get(i-1).get(m-1)+P.get(i-1).get(j-1);
+            ans=Math.max(temp,ans);
+        }
+        
+
+        return ans;
+    }
+}
