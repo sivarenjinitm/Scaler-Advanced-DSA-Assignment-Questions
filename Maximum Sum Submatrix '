@@ -1,0 +1,34 @@
+public class Solution {
+    
+    public int solve(ArrayList<ArrayList<Integer>> A) {
+        
+        int maxsum=Integer.MIN_VALUE;
+        int n=A.size();
+        int m=A.get(0).size();
+
+        for(int k=0;k<m;k++)
+        {   ArrayList<Integer> c=new ArrayList<>();
+            for(int i=0;i<n;i++)
+            c.add(0);
+
+            for(int j=k;j<m;j++)
+                {
+                for(int i=0;i<n;i++)//storing column wise sum values in the 1-d array
+                c.set(i,c.get(i)+A.get(i).get(j));
+
+                //Kadane's Algo
+                int sum=0;
+                for(int i=0;i<n;i++)
+                {
+                    sum+=c.get(i);
+                    maxsum=Math.max(maxsum,sum);
+                    if(sum<0)
+                    {
+                        sum=0;                       
+                    }
+                }
+             }
+        }
+        return maxsum;
+    }
+}
