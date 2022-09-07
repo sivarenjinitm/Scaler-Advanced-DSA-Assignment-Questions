@@ -1,0 +1,33 @@
+public class Solution {
+    public int solve(ArrayList<ArrayList<Integer>> A, int B) {
+        int n=A.size();
+        
+        //Building prefix sum matrix
+        ArrayList<ArrayList<Integer>> p=new ArrayList<>();
+        for(int i=0;i<=n;i++)//First column
+        {
+            p.add(new ArrayList<>());
+            p.get(i).add(0);
+        }
+        for(int i=0;i<m;i++)//First row
+        p.get(0).add(0);
+        for(int i=1;i<=n;i++)//Rest of the matrix
+        for(int j=1;j<=m;j++)
+        {
+            p.get(i).add(A.get(i-1).get(j-1)+p.get(i-1).get(j)+p.get(i).get(j-1)-p.get(i-1).get(j-1));
+        }
+
+        //Finding max sum of B*B submatrix
+        int maxsum=Integer.MIN_VALUE;
+        for(int i=1;i<=(n+1-B);i++)
+        for(int j=1;j<=(m+1-B);j++)
+        {
+            int ei=i+B-1;
+            int ej=j+B-1;
+            int sum=p.get(ei).get(ej)-p.get(i-1).get(ej)-p.get(ei).get(j-1)+p.get(i-1).get(j-1);
+            maxsum=Math.max(sum,maxsum);
+        }
+
+        return maxsum;
+    }
+}
