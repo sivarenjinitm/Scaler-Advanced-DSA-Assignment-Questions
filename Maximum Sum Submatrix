@@ -1,0 +1,38 @@
+public class Solution {
+    public int solve(ArrayList<ArrayList<Integer>> A) {
+        int n=A.size();
+        int m=A.get(0).size();
+
+        //Build prefix sum matrix with PADDING
+        ArrayList<ArrayList<Integer>> P=new ArrayList<>();
+        for(int i=0;i<=n;i++)
+        P.add(new ArrayList<>());
+
+        for(int i=0;i<=n;i++)//First column
+        P.get(i).add(0);
+            
+        for(int i=1;i<=m;i++)//First row
+        P.get(0).add(0);
+
+        for(int i=1;i<=n;i++)//Rest of the prefix sum matrix elements
+        for(int j=1;j<=m;j++)
+        P.get(i).add(A.get(i-1).get(j-1)+P.get(i-1).get(j)+P.get(i).get(j-1)-P.get(i-1).get(j-1));
+
+        //System.out.print(P);
+
+        //Finding the maximum submatrix sum
+        int maxsum=Integer.MIN_VALUE;
+
+        for(int si=1;si<=n;si++)
+        for(int sj=1;sj<=m;sj++)
+        for(int ei=si;ei<=n;ei++)
+        for(int ej=sj;ej<=m;ej++)
+        {//System.out.print("Start:"+si+","+sj+" End:"+ei+","+ej);
+            int sum=P.get(ei).get(ej)-P.get(ei).get(sj-1)-P.get(si-1).get(ej)+P.get(si-1).get(sj-1);
+            maxsum=Math.max(sum,maxsum);
+        }
+
+        return maxsum;
+
+    }
+}
