@@ -1,0 +1,28 @@
+public class Solution {
+    public int firstMissingPositive(ArrayList<Integer> A) {
+        int n=A.size();
+        //Replace all -ve and 0s to a no. not possible to be the answer
+        for(int i=0;i<n;i++)
+        {
+            if(A.get(i)<=0)
+            A.set(i,n+2);
+        }
+        //Set the values of the array to -ve at location where absoulute value is present in array
+        for(int i=0;i<n;i++)
+        {
+            int val=Math.abs(A.get(i));
+            if(val<=n)
+            {
+                A.set(val-1,Math.abs(A.get(val-1))*-1);
+            }
+        }
+        //Find and return the first positive position in the array as the array now acts as a T/F table for presense of an element inside it
+        for(int i=0;i<n;i++)
+        {
+            if(A.get(i)>0)
+            return i+1;
+        }
+
+        return n+1;
+    }
+}
