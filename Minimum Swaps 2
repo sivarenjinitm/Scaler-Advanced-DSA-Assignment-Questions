@@ -1,0 +1,20 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int n=A.size();
+        int minswap=0;
+
+        for(int i=0;i<n;i++)
+        {
+            while(A.get(i)!=i)
+            {   
+                //Swapping with position equal to the position value
+                int temp=A.get(A.get(i));
+                A.set(A.get(i),A.get(i));
+                A.set(i,temp);
+                minswap++;
+            }
+
+        }
+        return minswap;
+    }
+}
