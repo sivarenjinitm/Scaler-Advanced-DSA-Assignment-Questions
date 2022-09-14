@@ -1,0 +1,16 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int n=A.size();
+        int max=-1;
+        int part=0;
+
+        //If at each index, the maximum value till that index is less than or equal to that index, then a partion can be created 
+        for(int i=0;i<n;i++)
+        {
+            max=Math.max(A.get(i),max);
+            if(max<=i)
+            part++;
+        }
+        return part;
+    }
+}
