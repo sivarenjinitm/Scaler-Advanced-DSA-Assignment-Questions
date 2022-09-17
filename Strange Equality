@@ -1,0 +1,29 @@
+public class Solution {
+    public int solve(int A) {
+        int X=0;
+        int Y=0;
+        
+        //(A+B)=(A^B)+2*(A&B) , i.e by expanding the equality we get A&B==0
+        //Hence the set bits of A should be unset to find X and Y
+        //For max no. less than A, we should unset all set bits of A
+        //For min no. larger than A, we should take the next 2's power of A
+        //X would be no. with all set bits unset,i.e the compliment
+        //Y would be the next largest power of 2
+
+        int len=0;
+        while(A!=0)
+        {
+            if((A&1)==0)
+            X=X+(1<<len);
+
+            len++;
+            A=A>>1;
+        }
+        Y=(1<<len);
+
+        //System.out.print(X+"--"+Y+"--");
+       
+        return X^Y;
+
+    }
+}
