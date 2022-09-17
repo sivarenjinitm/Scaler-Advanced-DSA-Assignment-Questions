@@ -1,0 +1,29 @@
+public class Solution {
+    public int solve(int A) {
+        //Finding length of A
+        int a=A;
+        int len=0;
+        while(a!=0)
+        {
+            len++;
+            a=a>>1;
+        }
+
+        //Findind the set bits in every bit from 0->len
+        long count=0;
+        for(int i=0;i<=len;i++)
+        {
+            int mul=(int)(Math.pow(2,i));
+            int x=(A+1)/mul;
+            int y=(A+1)%mul;
+
+            long curr_count=(x/2)*mul;
+            if(x%2==1)
+            curr_count+=y;
+
+            count+=(curr_count%1000000007);
+        }
+
+        return (int)(count%1000000007);
+    }
+}
