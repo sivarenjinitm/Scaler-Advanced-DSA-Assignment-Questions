@@ -1,0 +1,45 @@
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        int n=intervals.size();
+        ArrayList<Interval> ans=new ArrayList<>();
+        int tag=0;//To find if the new interval was added to the list
+
+        for(int i=0;i<n;i++)
+        {
+            Interval x=intervals.get(i);
+
+            if(x.end<newInterval.start)//The current interval is before the new interval
+            {
+                ans.add(x);
+            }
+            else if(newInterval.end<x.start)//The new interval is before the current interval
+            {
+                ans.add(newInterval);
+                tag=1;
+                while(i<n)
+                {
+                    ans.add(intervals.get(i));
+                    i++;
+                }
+            }
+            else//Current interval is overlapping the new interval
+            {
+                newInterval.start=(Math.min(x.start,newInterval.start));
+                newInterval.end=Math.max(x.end,newInterval.end);
+            }
+        }
+        if(tag==0)//Adding new interval if its overlapping all the last elements
+        ans.add(newInterval);
+
+        return ans;
+    }
+}
