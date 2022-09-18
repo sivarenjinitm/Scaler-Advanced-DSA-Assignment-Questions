@@ -1,0 +1,41 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int maximumGap(final List<Integer> A) {
+        int n=A.size();
+        int[][] s=new int[n][2];
+        
+
+        for(int i=0;i<n;i++)
+        {
+            s[i][0]=A.get(i);
+            s[i][1]=i;
+        } 
+        
+        Arrays.sort(s,new Comparator<int[]>()
+        {
+            @Override
+            public int compare(int[] a,int[] b)
+            {
+                if(a[0]>b[0]) return 1;
+                else if(a[0]==b[0]) return 0;
+                else return -1;
+            }
+        }
+        );//Lambda function for comparators
+
+        //Finding the max distance
+        //Starting from the end, each index will be subtracted from the maximum index encountered before that
+        int MaxInd=-1;
+        int maxd=Integer.MIN_VALUE;
+        for(int i=n-1;i>-1;i--)
+        {
+            MaxInd=Math.max(MaxInd,s[i][1]);
+            maxd=Math.max(maxd,MaxInd-s[i][1]);
+        }
+        
+        //for(int i=0;i<n;i++)
+        //System.out.print(s[i][0]+","+s[i][1]+"  ");
+
+        return maxd;
+    }
+}
