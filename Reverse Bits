@@ -1,0 +1,13 @@
+public class Solution {
+	public long reverse(long a) {
+        long reva=0;
+
+        for(int i=0,j=31;i<32;i++,j--)
+        {
+            if((a&(1<<i))!=0)
+            reva+=(long)Math.pow(2,j);//Since its unsigned we use addition of powers
+        }
+
+        return reva;
+	}
+}
