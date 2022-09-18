@@ -1,0 +1,45 @@
+public class Solution {
+    public int solve(int A, int B) {
+
+        //Find set bits in A
+        int setA=0;
+        int a=A;
+        while(a!=0)
+        {
+            if((a&1)==1)
+            setA++;
+            a=a>>1;
+        }
+        //System.out.print(setA+"--");
+        //Finding X
+        int X=A;
+        int tag=0;
+        if(setA<B)
+        {
+            a=A;
+            int c=B-setA;
+            for(int i=0;c!=0;i++)
+            {
+                if((A&(1<<i))==0)
+                {
+                    X|=(1<<i);
+                    c--;
+                }
+            }
+           
+        }
+        else if(setA>B)
+            {
+                int c=setA-B;
+                while(c!=0)
+                {
+                    X=(X&(X-1));
+                    c--;
+                }
+            }
+        
+        
+
+        return X;
+    }
+}
