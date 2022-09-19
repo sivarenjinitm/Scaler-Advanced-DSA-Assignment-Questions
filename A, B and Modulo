@@ -1,0 +1,12 @@
+public class Solution {
+    public int solve(int A, int B) {
+        //We know, (A-B)%M=((A%M-B%M)+M)%M 
+        //And, M%M=0
+        //Therefore, A%M=B%M implies (A-B)%M=0
+        //This means that M is a factor for (A-B)
+
+        //The greatest M would be (A-B)
+        return Math.abs(A-B);
+
+    }
+}
