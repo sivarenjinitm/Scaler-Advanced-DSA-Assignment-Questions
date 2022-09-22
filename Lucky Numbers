@@ -1,0 +1,35 @@
+public class Solution {
+    public int solve(int A) {
+        //Create a sieve to find the count of prime divisors for each number form 1 to a
+        //Return the numbers whoes count is 2(or 4???)
+
+        //Create and Array with A+1 elements
+        int[] cd=new int[A+1];
+        //Set all values to 0 
+        cd[1]=0;
+        for(int i=2;i<=A;i++)
+        cd[i]=0;
+
+        //Erathos sieve to assign the count of prime divisors
+        for(int i=2;i<=A;i++)
+        {
+            if(cd[i]==0)//Its a sieve now!
+            {
+                for(int j=i*2;j<=A;j+=i)
+                {
+                    cd[j]++;
+                }
+            }
+        }
+        
+        //Counting the numbers with exactly 2 prime divisors
+        int magicCount=0;
+        for(int x:cd)
+        {
+            if(x==2)
+            magicCount++;
+        }
+
+        return magicCount;
+    }
+}
