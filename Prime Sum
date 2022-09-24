@@ -1,0 +1,26 @@
+public class Solution {
+    public int isPrime(int X)
+    {
+        for(int i=2;i<Math.sqrt(X);i++)
+        {
+            if(X%i==0)
+            return 0;
+        }
+        return 1;
+    }
+    public ArrayList<Integer> primesum(int A) {
+        //Finding the smallest sum
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=2;i<=A;i++)
+        {
+            if(isPrime(i)==1 && isPrime(A-i)==1)
+            {
+                ans.add(Math.min(i,A-i));
+                ans.add(Math.max(i,A-i));
+                break;
+            }
+        }
+        return ans;
+
+    }
+}
