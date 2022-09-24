@@ -1,0 +1,21 @@
+public class Solution {
+   public long pow(int X,int P,int M)
+    {
+        if(P==0)
+        return 1;
+
+        long p=pow(X,P/2,M);
+
+        if(P%2==0)
+        return (p%M*p%M)%M;
+
+        else
+        return (p%M*p%M*X)%M;
+    }
+    public int solve(int A, int B) {
+        //Fermants law states that (A^-1)%B=(A^(B-2)%M)%M--->B must be prime
+        long ans=(pow(A,B-2,B));
+
+        return (int)(ans%B);
+    }
+}
