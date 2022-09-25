@@ -1,0 +1,35 @@
+public class Solution {
+    //Factorial function with regression causing stack overflow error, better use loop
+    
+    //Power function
+    public long powa(long X,int P,int M)
+    {
+        if(P==0)
+        return 1;
+
+        long p=powa(X,P/2,M);
+
+        if(P%2==0)
+        return (p%M*p%M)%M;
+
+        return (p%M*p%M*X%M)%M;
+    }
+
+    public int solve(int A, int B, int C) {
+        //Storing factorial array
+        long[] fact=new long[A+1];
+        fact[0]=1;
+        for(int i=1;i<=A;i++)
+        {
+            fact[i]=(fact[i-1]%C*i%C)%C;
+        }
+        
+        //calculating nCr%p
+        long n=fact[A];
+        long d1=powa(fact[A-B],C-2,C);
+        long d2=powa(fact[B],C-2,C);
+        long ans=(n%C*d1%C*d2%C)%C;
+
+        return (int)ans;
+    }
+}
