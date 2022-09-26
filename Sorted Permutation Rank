@@ -1,0 +1,45 @@
+public class Solution {
+    public int findRank(String A) {
+        
+        //Store the letters of the word in a array in sorted order
+        int mod=1000003;
+        int n=A.length();
+        if(n==1)
+        return 1;
+        ArrayList<Character> l=new ArrayList<>();
+        for(int i=0;i<n;i++)
+        l.add(A.charAt(i));
+
+        Collections.sort(l);
+        //Storing factorials in an array
+        int[] fact=new int[n+1];
+        fact[0]=1;
+        for(int i=1;i<=n;i++)
+        {
+            fact[i]=(fact[i-1]%mod*i%mod)%mod;
+        }
+
+        //Algo for finding the ranking
+        long pos=0;
+        for(int i=0;i<n-1;i++)
+        {
+            char cur=A.charAt(i);
+            int arrLen=l.size();
+            int curInd=-1;
+            for(int j=0;j<arrLen;j++)
+            {
+                if(l.get(j)==cur)
+                {
+                    curInd=j;
+                    break;
+                }
+            }
+            //Keep on adding the no. of words that can be formed from the letters lesser than  the current letter
+            pos=(pos%mod+(fact[arrLen-1]%mod*curInd%mod)%mod)%mod;
+            
+            l.remove(curInd);
+        }
+
+        return (int)((pos+1)%mod);
+    }
+}
