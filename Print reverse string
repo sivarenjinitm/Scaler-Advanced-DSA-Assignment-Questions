@@ -1,0 +1,27 @@
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void rev(String S)
+    {
+        int n=S.length();
+
+        System.out.print(S.charAt(n-1));
+        if(n!=1)
+        rev(S.substring(0,n-1));
+
+        return;
+    }
+    public static void main(String[] args) {
+        // YOUR CODE GOES HERE
+        // Please take input and print output to standard input/output (stdin/stdout)
+        // DO NOT USE ARGUMENTS FOR INPUTS
+        // E.g. 'Scanner' for input & 'System.out' for output
+
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+
+        rev(str);
+        
+    }
+}
