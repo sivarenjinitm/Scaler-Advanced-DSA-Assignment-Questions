@@ -1,0 +1,48 @@
+public class Solution {
+    public void generator(int x,ArrayList<Integer> ans)
+    {   //Base case
+        if(x==1)
+        {
+            ans.add(0);
+            ans.add(1);
+        }
+
+        else
+        {//Generating gray code for bits before current no. of bits
+        generator(x-1,ans);
+
+        //Adding elements in reverse order
+        for(int i=ans.size()-1;i>-1;i--)
+        ans.add(ans.get(i));
+
+        for(int i=0;i<ans.size();i++)
+        {
+            if(i>=ans.size()/2)
+            {   String b=Integer.toBinaryString(ans.get(i));
+                //Adding Trailing 0s to the beginning
+                int n=b.length();
+                n=x-n-1;
+                while(n!=0)
+                {
+                    b="0"+b;
+                    n--;
+                }
+                //Adding "1" to the beginning                
+                b="1"+b;
+                ans.set(i,Integer.parseInt(b,2));
+            }
+        }
+
+        }
+
+    }
+	public ArrayList<Integer> grayCode(int a)
+    {
+        ArrayList<Integer> ans=new ArrayList<>();
+        generator(a,ans);
+        //System.out.print(ans);
+
+        return ans;
+
+	}
+}
