@@ -1,0 +1,64 @@
+public class Solution {
+    //Merge Function - for mergeing two sub arrays in sorted order
+    public long merge(ArrayList<Integer> A,int l,int m, int r)
+    {
+        int mod=1000000007;
+        int c=0;
+        int p1=l;
+        int p2=m+1;
+        ArrayList<Integer> temp=new ArrayList<>();
+
+        while(p1<=m && p2<=r)
+        {
+            if(A.get(p1)<=A.get(p2))
+            {
+                temp.add(A.get(p1));
+                p1++;
+            }
+            else
+            {
+                temp.add(A.get(p2));
+                p2++;
+                c=(c%mod+(m-p1+1)%mod)%mod;
+            }
+        }
+        while(p1<=m)
+        {
+            temp.add(A.get(p1));
+            p1++;
+        }
+        while(p2<=r)
+        {
+            temp.add(A.get(p2));
+            p2++;
+        }
+
+        for(int i=l;i<=r;i++)
+        {
+            A.set(i,temp.get(i-l));
+        }  
+
+        return c;     
+    }
+    //InversionCount - for splitting the array into subarrays
+    public long inversionCount(ArrayList<Integer> A,int l,int r)
+    {
+        int mod=1000000007;
+        if(l==r) return 0;
+        int mid=(r+l)/2;
+        long x=inversionCount(A,l,mid);
+        long y=inversionCount(A,mid+1,r);
+        long z=merge(A,l,mid,r);
+
+        return (x%mod+y%mod+z%mod)%mod;
+       
+    }
+
+    public int solve(ArrayList<Integer> A) {
+        int mod=1000000007;
+        int n=A.size();
+        long count=0;
+        count = inversionCount(A,0,n-1)%mod;
+        return (int)count;
+    }
+}
