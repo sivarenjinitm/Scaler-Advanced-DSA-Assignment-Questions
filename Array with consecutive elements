@@ -1,0 +1,60 @@
+public class Solution {
+    //Merge Function - for mergeing two sub arrays in sorted order
+    public void merge(ArrayList<Integer> A,int l,int m, int r)
+    {
+        int p1=l;
+        int p2=m;
+        ArrayList<Integer> temp=new ArrayList<>();
+
+        while(p1<m && p2<=r)
+        {
+            if(A.get(p1)<=A.get(p2))
+            {
+                temp.add(A.get(p1));
+                p1++;
+            }
+            else
+            {
+                temp.add(A.get(p2));
+                p2++;
+            }
+        }
+        while(p1<m)
+        {
+            temp.add(A.get(p1));
+            p1++;
+        }
+        while(p2<=r)
+        {
+            temp.add(A.get(p2));
+            p2++;
+        }
+
+        for(int i=l;i<=r;i++)
+        {
+            A.set(i,temp.get(i-l));
+        }       
+    }
+    //MergrSort - for splitting the array into subarrays
+    public void mergeSort(ArrayList<Integer> A,int l,int r)
+    {
+        if(l==r) return ;
+        int mid=(r+l)/2;
+        mergeSort(A,l,mid);
+        mergeSort(A,mid+1,r);
+        merge(A,l,mid+1,r);
+       
+    }
+
+    public int solve(ArrayList<Integer> A) {
+        int n=A.size();
+        mergeSort(A,0,n-1);
+        for(int i=0;i<n-1;i++)
+        {
+            if(A.get(i+1)-A.get(i)!=1)
+            return 0;
+        }
+
+        return 1;
+    }
+}
