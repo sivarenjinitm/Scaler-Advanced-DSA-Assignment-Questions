@@ -1,0 +1,38 @@
+public class Solution {
+    //GCD function
+    public int gcd(int a, int b)
+    {
+        if(a==0)
+        return b;
+
+        return gcd(b%a,a);
+    }
+    //LCM function
+    public int lcm(int a,int b)
+    {
+        return (a*b)/gcd(a,b);
+    }
+
+    public ArrayList<Integer> solve(ArrayList<Integer> A) {
+    //Find the number of elements in the original array
+    int n=A.size();
+    int ele=(int)Math.sqrt(n);
+    
+    //Group the elemnts in the array based on the count
+    //Return lcm of each group
+    int l=1;
+    ArrayList<Integer> ans=new ArrayList<>();
+    for(int i=0;i<n;i++)
+    {
+        if(i!=0 && i%ele==0)
+        {
+            ans.add(l);
+            l=1;
+        }
+        l=lcm(l,A.get(i));
+    }
+    ans.add(l);
+
+    return ans;
+}
+}
